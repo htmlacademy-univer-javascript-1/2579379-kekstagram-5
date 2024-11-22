@@ -1,9 +1,6 @@
 /*Функция для проверки длины строки*/
 function checkLength (inputString, maxLength) {
-  if(inputString.length <= maxLength) {
-    return true;
-  }
-  return false;
+  return inputString.length <= maxLength;
 }
 
 checkLength('i am string', 11);
@@ -15,21 +12,24 @@ console.log(`-Строка короче максимальной длины? - $
 
 /*Функция для проверки, является ли строка палиндромом*/
 function checkPalindrom (inputString) {
+  let isPalindrom = true;
   const newStr = inputString.toLowerCase().replaceAll(' ', '');
-  for (let i = 0; i < newStr.length; i++) {
-    if (newStr[i] === newStr[newStr.length - 1 - i]) {
-      return true;
+  for (let i = 0; i < newStr.length / 2; i++) {
+    if (newStr[i] !== newStr[newStr.length - 1 - i]) {
+      isPalindrom = false;
     }
-    return false;
   }
+  return isPalindrom;
 }
 
 checkPalindrom('mem');
 
-/*Для тестирования в консоли
-console.log(`-Строка является палиндромом? - ${checkPalindrom('топот')}`);
+//Для тестирования в консоли
+/*console.log(`-Строка является палиндромом? - ${checkPalindrom('топот')}`);
+console.log(`-Строка является палиндромом? - ${checkPalindrom('топат')}`);
 console.log(`-Строка является палиндромом? - ${checkPalindrom('До ВоД')}`);
 console.log(`-Строка является палиндромом? - ${checkPalindrom('Кекс')}`);
+console.log(`-Строка является палиндромом? - ${checkPalindrom('кексикс')}`);
 console.log(`-Строка является палиндромом? - ${checkPalindrom('аааааа')}`);
 console.log(`-Строка является палиндромом? - ${checkPalindrom('А роза упала на лапу Азора ')}`);*/
 
@@ -37,14 +37,11 @@ console.log(`-Строка является палиндромом? - ${checkPal
 const extractNumbers = (str) => {
   let res = '';
   if(typeof str === 'number') {
-    if(str < 0) {
-      str = -str;
-    }
-    return str;
+    return Math.abs(str);
   }
   for (let i = 0; i < str.length; i++) {
     if(!Number.isNaN(parseInt(str[i], 10))) {
-      res += parseInt(str[i], 10);
+      res += str[i];
     }
   }
 
