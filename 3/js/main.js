@@ -64,22 +64,25 @@ const getComment = () => {
   };
 };
 
-const photoId = getUniqueRandomValue(1, 25);
-const urlPart = getUniqueRandomValue(1, 25);
-
 const getPhotoDescription = () => {
   const comments = Array.from({length: getRandomInteger(0, 30)}, getComment);
-  return {
-    id: photoId(),
-    url: `photos/${urlPart()}.jpg`,
-    description: "This is photo description",
-    comments: comments
+  const getPhotoId = getUniqueRandomValue(1, 25);
+  const urlPart = getUniqueRandomValue(1, 25);
+  return function () {
+    return {
+      id: getPhotoId(),
+      url: `photos/${urlPart()}.jpg`,
+      description: "This is photo description",
+      comments: comments
+    };
   };
 };
 
 const getAllPhotoDescriptions = () => {
-  const photosArray = Array.from({length: 25}, getPhotoDescription);
+  const getPhoto = getPhotoDescription();
+  const photosArray = Array.from({length: 25}, getPhoto);
   return photosArray;
 };
+
 
 getAllPhotoDescriptions();
