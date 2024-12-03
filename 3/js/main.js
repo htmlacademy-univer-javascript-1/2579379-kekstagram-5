@@ -67,11 +67,11 @@ const getComment = () => {
 const getPhotoDescription = () => {
   const comments = Array.from({length: getRandomInteger(0, 30)}, getComment);
   const getPhotoId = getUniqueRandomValue(1, 25);
-  const urlPart = getUniqueRandomValue(1, 25);
+  const getUrlPart = getUniqueRandomValue(1, 25);
   return function () {
     return {
       id: getPhotoId(),
-      url: `photos/${urlPart()}.jpg`,
+      url: `photos/${getUrlPart()}.jpg`,
       description: "This is photo description",
       comments: comments
     };
