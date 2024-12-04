@@ -1,5 +1,5 @@
-import { getUniqueRandomValue, getMessage, getRandomInteger} from "./utils";
-import { NAMES, TEXT_FOR_MESSAGE} from "./constants";
+import { getUniqueRandomValue, getMessage, getRandomInteger} from "./utils.js";
+import { NAMES, TEXT_FOR_MESSAGE} from "./constants.js";
 
 
 const getCommentId = getUniqueRandomValue(0, 3000000);
@@ -22,9 +22,15 @@ const getPhotoDescription = () => {
   return {
     id: getPhotoId(),
     url: `photos/${getUrlPart()}.jpg`,
+    likes: getRandomInteger(15, 200),
     description: "This is photo description",
     comments: comments
   };
 };
 
-export {getComment, getPhotoDescription};
+const getAllPhotoDescriptions = () => {
+  const photosArray = Array.from({length: 25}, getPhotoDescription);
+  return photosArray;
+};
+
+export {getComment, getPhotoDescription, getAllPhotoDescriptions};

@@ -1,8 +1,5 @@
-import {getPhotoDescription} from "./data";
-
-const getAllPhotoDescriptions = () => {
-  const photosArray = Array.from({length: 25}, getPhotoDescription);
-  return photosArray;
-};
+import {getAllPhotoDescriptions} from "./data.js";
+import "./draw.js";
 
 getAllPhotoDescriptions();
+
