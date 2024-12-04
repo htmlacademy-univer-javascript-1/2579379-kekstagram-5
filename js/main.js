@@ -52,37 +52,35 @@ const getMessage = (text) => {
   return message.trim();
 };
 
-const commentId = getUniqueRandomValue(0, 3000000);
+const getCommentId = getUniqueRandomValue(0, 3000000);
 
 const getComment = () => {
   const avatarPart = getUniqueRandomValue(1, 6);
   return {
-    id: commentId(),
+    id: getCommentId(),
     avatar: `img/avatar-${avatarPart()}.svg`,
     message: getMessage(TEXT_FOR_MESSAGE),
     name: NAMES[getRandomInteger(0, NAMES.length - 1)]
   };
 };
 
+const getPhotoId = getUniqueRandomValue(1, 25);
+const getUrlPart = getUniqueRandomValue(1, 25);
+
 const getPhotoDescription = () => {
   const comments = Array.from({length: getRandomInteger(0, 30)}, getComment);
-  const getPhotoId = getUniqueRandomValue(1, 25);
-  const getUrlPart = getUniqueRandomValue(1, 25);
-  return function () {
-    return {
-      id: getPhotoId(),
-      url: `photos/${getUrlPart()}.jpg`,
-      description: "This is photo description",
-      comments: comments
-    };
+  return {
+    id: getPhotoId(),
+    url: `photos/${getUrlPart()}.jpg`,
+    description: "This is photo description",
+    comments: comments
   };
 };
 
+
 const getAllPhotoDescriptions = () => {
-  const getPhoto = getPhotoDescription();
-  const photosArray = Array.from({length: 25}, getPhoto);
+  const photosArray = Array.from({length: 25}, getPhotoDescription);
   return photosArray;
 };
-
 
 getAllPhotoDescriptions();
