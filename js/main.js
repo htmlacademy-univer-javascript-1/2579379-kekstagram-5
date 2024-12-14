@@ -1,5 +1,3 @@
-import {getAllPhotoDescriptions} from "./data.js";
-import "./draw.js";
+import { showBigPhoto } from "./photo-modal.js";
 
-getAllPhotoDescriptions();
-
+showBigPhoto();
