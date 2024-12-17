@@ -1,23 +1,19 @@
 const commentsList = document.querySelector(".social__comments");
+const commentTemplate = document.querySelector(".social__comment");
 commentsList.innerHTML = "";
 
 const renderComments = (comments) => {
   comments.forEach((comment) => {
-    const oneComment = document.createElement("li");
-    oneComment.classList.add("social__comment");
-    const commentAvatar = document.createElement("img");
-    commentAvatar.classList.add("social__picture");
-    commentAvatar.src = comment.avatar;
-    commentAvatar.alt = comment.name;
-    commentAvatar.width = "35";
-    commentAvatar.height = "35";
-    oneComment.appendChild(commentAvatar);
-    const commentMessage = document.createElement("p");
-    commentMessage.classList.add("social__text");
-    commentMessage.textContent = comment.message;
-    oneComment.appendChild(commentMessage);
+    const oneComment = commentTemplate.cloneNode(true);
+    oneComment.querySelector(".social__picture").src = comment.avatar;
+    oneComment.querySelector(".social__picture").alt = comment.name;
+    oneComment.querySelector(".social__text").textContent = comment.message;
     commentsList.appendChild(oneComment);
   });
 };
 
-export {renderComments};
+const cleanComments = () => {
+  commentsList.innerHTML = "";
+};
+
+export {renderComments, cleanComments};

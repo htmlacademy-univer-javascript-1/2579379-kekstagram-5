@@ -1,7 +1,7 @@
 import { allPhotosContainer, allPhotos } from "./draw.js";
 import { isEscKey } from "./utils.js";
 import { renderBigPhoto } from "./render-full-size-photo.js";
-import { renderComments } from "./render-comments.js";
+import { renderComments, cleanComments } from "./render-comments.js";
 
 const bigPhotoContainer = document.querySelector(".big-picture");
 const closeBigPhotoButton = document.querySelector(".big-picture__cancel");
@@ -27,6 +27,7 @@ function closePhotoModal () {
   document.removeEventListener("keydown", closeOnEscape);
   bigPhotoContainer.removeEventListener("click", closeOnMouseClick);
   body.classList.remove(".modal-open");
+  cleanComments();
 }
 
 const openPhotoModal = (photoId) => {
@@ -42,8 +43,8 @@ const openPhotoModal = (photoId) => {
   renderComments(currentPhotoComments);
 
   body.classList.add(".modal-open");
-  commentsCount.classList.add("hidden");
-  commentsLoader.classList.add("hidden");
+  //commentsCount.classList.add("hidden");
+  //commentsLoader.classList.add("hidden");
 };
 
 const showBigPhoto = () => {
