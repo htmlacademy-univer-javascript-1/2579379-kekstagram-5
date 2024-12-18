@@ -1,3 +1,3 @@
-import { showBigPhoto } from "./photo-modal.js";
+import { handlePhotoClick } from "./photo-modal.js";
 
-showBigPhoto();
+handlePhotoClick();

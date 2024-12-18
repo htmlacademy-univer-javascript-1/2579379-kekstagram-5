@@ -10,15 +10,15 @@ const body = document.querySelector("body");
 const commentsCount = document.querySelector(".social__comment-count");
 const commentsLoader = document.querySelector(".comments-loader");
 
-const closeOnEscape = (evt) => {
-  if (isEscKey(evt)) {
-    evt.preventDefault();
+const closeOnEscape = (event) => {
+  if (isEscKey(event)) {
+    event.preventDefault();
     closePhotoModal();
   }
 };
 
-const closeOnMouseClick = (evt) => {
-  evt.preventDefault();
+const closeOnMouseClick = (event) => {
+  event.preventDefault();
   closePhotoModal();
 };
 
@@ -47,14 +47,14 @@ const openPhotoModal = (photoId) => {
   //commentsLoader.classList.add("hidden");
 };
 
-const showBigPhoto = () => {
-  allPhotosContainer.addEventListener("click", (evt) => {
-    const clickedPhoto = evt.target.closest(".picture");
+const handlePhotoClick = () => {
+  allPhotosContainer.addEventListener("click", (event) => {
+    const clickedPhoto = event.target.closest(".picture");
     if(clickedPhoto) {
-      evt.preventDefault();
+      event.preventDefault();
       openPhotoModal(clickedPhoto.dataset.id);
     }
   });
 };
 
-export {showBigPhoto};
+export {handlePhotoClick};
