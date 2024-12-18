@@ -44,4 +44,6 @@ const getMessage = (text) => {
   return message.trim();
 };
 
-export {getRandomInteger, getUniqueRandomValue, getMessage};
+const isEscKey = (evt) => evt.key === "Escape";
+
+export {getRandomInteger, getUniqueRandomValue, getMessage, isEscKey};

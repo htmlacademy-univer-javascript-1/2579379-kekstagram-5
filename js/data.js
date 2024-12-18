@@ -29,8 +29,8 @@ const getPhotoDescription = () => {
 };
 
 const getAllPhotoDescriptions = () => {
-  const photosArray = Array.from({length: 25}, getPhotoDescription);
-  return photosArray;
+  const photos = Array.from({length: 25}, getPhotoDescription);
+  return photos;
 };
 
 export {getComment, getPhotoDescription, getAllPhotoDescriptions};
