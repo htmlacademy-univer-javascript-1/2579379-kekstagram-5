@@ -14,7 +14,7 @@ let allPhotoComments = [];
 const renderComments = () => {
   const visibleComments = allPhotoComments.slice(currentVisibleCount, currentVisibleCount + RENDER_STEP);
   const visibleCommentsLength = visibleComments.length + currentVisibleCount;
-  allPhotoComments.forEach((comment) => {
+  visibleComments.forEach((comment) => {
     const oneComment = commentTemplate.cloneNode(true);
     oneComment.querySelector(".social__picture").src = comment.avatar;
     oneComment.querySelector(".social__picture").alt = comment.name;
@@ -36,7 +36,7 @@ const renderComments = () => {
   currentVisibleCount += RENDER_STEP;
 };
 
-const onCommentsLoaderClick = (photo) => {
+const loadComments = (photo) => {
   allPhotoComments = photo.comments;
   renderComments();
   commentsLoader.addEventListener("click", renderComments);
@@ -49,4 +49,4 @@ const cleanComments = () => {
   commentsLoader.removeEventListener("click", renderComments);
 };
 
-export {onCommentsLoaderClick, cleanComments};
+export {loadComments, cleanComments};

@@ -1,7 +1,7 @@
 import { allPhotosContainer, allPhotos } from "./draw.js";
 import { isEscKey } from "./utils.js";
 import { renderBigPhoto } from "./render-full-size-photo.js";
-import { onCommentsLoaderClick, cleanComments } from "./render-comments.js";
+import { loadComments, cleanComments } from "./render-comments.js";
 
 const bigPhotoContainer = document.querySelector(".big-picture");
 const closeBigPhotoButton = document.querySelector(".big-picture__cancel");
@@ -36,7 +36,7 @@ const openPhotoModal = (photoId) => {
   bigPhotoContainer.classList.remove("hidden");
 
   renderBigPhoto(currentPhoto);
-  onCommentsLoaderClick(currentPhoto);
+  loadComments(currentPhoto);
 
   body.classList.add(".modal-open");
 };
