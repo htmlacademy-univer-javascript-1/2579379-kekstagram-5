@@ -9,4 +9,4 @@ const showPreview = (file) => {
   });
 };
 
-export {showPreview};
+export { showPreview };

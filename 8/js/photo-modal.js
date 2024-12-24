@@ -51,4 +51,4 @@ const handlePhotoClick = () => {
   });
 };
 
-export {handlePhotoClick};
+export { handlePhotoClick };

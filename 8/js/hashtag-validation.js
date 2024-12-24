@@ -11,24 +11,39 @@ const isHashtagUnique = (hashtags) => {
   return true;
 };
 
-const validateHashtags = (value) => {
+const getValue = (value) => {
   const inputValue = value.toLowerCase().trim();
 
   const hashtags = inputValue.split(" ");
 
-  if (hashtags.some((tag) => tag[0] !== "#")) {
-    return "Хэштег должен начинаться с символа #";
-  }
-
-  if (!isHashtagUnique(hashtags)) {
-    return "Хэштеги не должны повторяться";
-  }
-
-  if (hashtags.some((tag) => tag.slice(1).includes("#"))) {
-    return "Хэштеги должны разделяться пробелами";
-  }
-
-  return true;
+  return hashtags;
 };
 
-export { validateHashtags };
+const isHashSymbol = (value) => {
+  const hashtags = getValue(value);
+
+  if (!hashtags.some((tag) => tag[0] !== "#")) {
+    return true;
+  }
+  return false; // "Хэштег должен начинаться с символа #"
+};
+
+const isRepeat = (value) => {
+  const hashtags = getValue(value);
+
+  if (isHashtagUnique(hashtags)) {
+    return true;
+  }
+  return false; //"Хэштеги не должны повторяться"
+};
+
+const isSpaceBetween = (value) => {
+  const hashtags = getValue(value);
+
+  if (!hashtags.some((tag) => tag.slice(1).includes("#"))) {
+    return true;
+  }
+  return false; // "Хэштеги должны разделяться пробелами"
+};
+
+export { isHashSymbol, isRepeat, isSpaceBetween };
