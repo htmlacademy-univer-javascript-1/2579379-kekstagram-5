@@ -10,4 +10,4 @@ const renderBigPhoto = (photo) => {
   bigPhotoDescription.textContent = photo.description;
 };
 
-export {renderBigPhoto};
+export { renderBigPhoto };

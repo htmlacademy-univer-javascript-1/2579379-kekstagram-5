@@ -40,6 +40,7 @@ const loadComments = (photo) => {
   allPhotoComments = photo.comments;
   renderComments();
   commentsLoader.addEventListener("click", renderComments);
+
 };
 
 const cleanComments = () => {
@@ -49,4 +50,4 @@ const cleanComments = () => {
   commentsLoader.removeEventListener("click", renderComments);
 };
 
-export {loadComments, cleanComments};
+export { loadComments, cleanComments };

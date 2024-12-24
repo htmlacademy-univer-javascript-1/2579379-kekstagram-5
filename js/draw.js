@@ -1,4 +1,4 @@
-import { getAllPhotoDescriptions} from "./data.js";
+import { getAllPhotoDescriptions } from "./data.js";
 
 const allPhotosContainer = document.querySelector(".pictures");
 
@@ -22,4 +22,4 @@ allPhotos.forEach(({id, url, likes, description, comments}) => {
 
 allPhotosContainer.appendChild(photoFragment);
 
-export {allPhotosContainer, allPhotos};
+export { allPhotosContainer, allPhotos };

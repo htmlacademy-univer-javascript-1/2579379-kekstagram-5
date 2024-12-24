@@ -1,6 +1,6 @@
 import { isEscKey } from "./utils.js";
-import { validateHashtags } from "./hashtag-validation.js";
-import { MAX_COMMENT_LENGTH, FILE_TYPES } from "./constants.js";
+import { isHashSymbol, isRepeat, isSpaceBetween } from "./hashtag-validation.js";
+import { MAX_COMMENT_LENGTH, FILE_TYPES, ERRORS } from "./constants.js";
 import { showPreview } from "./preview-photo.js";
 
 const fileUploadControl = document.querySelector(".img-upload__input");
@@ -69,7 +69,13 @@ const pristine = new Pristine (uploadForm,
   }
 );
 
-pristine.addValidator(hashtagsInput, (value) => validateHashtags(value) === true, validateHashtags);
+const hashtagsValidation = () => {
+  pristine.addValidator(hashtagsInput, isHashSymbol, ERRORS.NOT_HASH, 1);
+  pristine.addValidator(hashtagsInput, isSpaceBetween, ERRORS.NOT_SPACES, 1);
+  pristine.addValidator(hashtagsInput, isRepeat, ERRORS.REPEATS, 1);
+};
+
+hashtagsValidation();
 
 pristine.addValidator(commentInput, commentValidate, "Комментарий не должен содержать более 140 символов");
 
@@ -86,4 +92,4 @@ function onSubmitForm (event) {
   }
 }
 
-export {openEditor};
+export { openEditor };
