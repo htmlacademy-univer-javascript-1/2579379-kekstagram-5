@@ -16,4 +16,26 @@ const MAX_COMMENT_LENGTH = 140;
 
 const FILE_TYPES = ["jpg", "jpeg", "png"];
 
-export { NAMES, TEXT_FOR_MESSAGE, MAX_COMMENT_LENGTH, FILE_TYPES, ERRORS };
+const Method = {
+  GET: "GET",
+  POST: "POST"
+};
+
+const BASE_URL = "https://29.javascript.htmlacademy.pro/kekstagram";
+
+const Route = {
+  GET_DATA: "/data",
+  SEND_DATA: "/",
+};
+
+const RequestError = {
+  [Method.GET]: "Не удается получить данные с сервера :(",
+  [Method.POST]: "Ошибка отправки данных на сервер. Попробуйте еще раз!"
+};
+
+const BUTTON_STATE = {
+  SENDING: "Отправляю...",
+  IDLE: "Отправить"
+};
+
+export { NAMES, TEXT_FOR_MESSAGE, MAX_COMMENT_LENGTH, FILE_TYPES, ERRORS, Method, BASE_URL, Route, RequestError, BUTTON_STATE };
