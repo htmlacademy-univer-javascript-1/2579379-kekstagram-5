@@ -1,4 +1,4 @@
-import { allPhotosContainer, allPhotos } from "./draw.js";
+import { allPhotosContainer } from "./draw.js";
 import { isEscKey } from "./utils.js";
 import { renderBigPhoto } from "./render-full-size-photo.js";
 import { loadComments, cleanComments } from "./render-comments.js";
@@ -27,26 +27,25 @@ function closePhotoModal () {
   cleanComments();
 }
 
-const openPhotoModal = (photoId) => {
+const openPhotoModal = (photo) => {
   closeBigPhotoButton.addEventListener("click", closeOnMouseClick);
   document.addEventListener("keydown", closeOnEscape);
 
-  const currentPhoto = allPhotos.find((photo) => photo.id === +photoId);
-
   bigPhotoContainer.classList.remove("hidden");
 
-  renderBigPhoto(currentPhoto);
-  loadComments(currentPhoto);
+  renderBigPhoto(photo);
+  loadComments(photo);
 
   body.classList.add(".modal-open");
 };
 
-const handlePhotoClick = () => {
+const handlePhotoClick = (photos) => {
   allPhotosContainer.addEventListener("click", (event) => {
     const clickedPhoto = event.target.closest(".picture");
-    if(clickedPhoto) {
+    const currentPhoto = photos.find((photo) => photo.id === +clickedPhoto.dataset.id);
+    if(currentPhoto) {
       event.preventDefault();
-      openPhotoModal(clickedPhoto.dataset.id);
+      openPhotoModal(currentPhoto);
     }
   });
 };

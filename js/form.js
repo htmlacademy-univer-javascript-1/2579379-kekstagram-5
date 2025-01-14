@@ -1,7 +1,9 @@
 import { isEscKey } from "./utils.js";
-import { isHashSymbol, isRepeat, isSpaceBetween } from "./hashtag-validation.js";
-import { MAX_COMMENT_LENGTH, FILE_TYPES, ERRORS } from "./constants.js";
+import { validatorCreation } from "./validation.js";
+import { FILE_TYPES, BUTTON_STATE } from "./constants.js";
 import { showPreview } from "./preview-photo.js";
+import { setData } from "./api.js";
+import { showMessageModal } from "./error-message.js";
 
 const fileUploadControl = document.querySelector(".img-upload__input");
 const photoEditForm = document.querySelector(".img-upload__overlay");
@@ -27,6 +29,9 @@ const closeOnEsc = (event) => {
 };
 
 const openEditor = () => {
+  const validator = validatorCreation(uploadForm);
+  validator.addValidators(hashtagsInput, commentInput);
+
   fileUploadControl.addEventListener("change", (event) => {
     event.preventDefault();
     photoEditForm.classList.remove("hidden");
@@ -46,6 +51,38 @@ const openEditor = () => {
     document.addEventListener("keydown", closeOnEsc);
     uploadForm.addEventListener("submit", onSubmitForm);
   });
+
+  const submitButton = document.querySelector(".img-upload__submit");
+
+  const successTemplate = document.querySelector("#success").content.querySelector(".success");
+  const errorTemplate = document.querySelector("#error").content.querySelector(".error");
+
+  const sendForm = (elementForm) => {
+    const isFormValid = validator.validate();
+
+    if (isFormValid) {
+      const formData = new FormData(elementForm);
+      hashtagsInput.value = hashtagsInput.value.trim().replace(/\s+/g, " ");
+      submitButton.textContent = BUTTON_STATE.SENDING;
+      submitButton.disabled = true;
+
+      setData(formData).then(() => {
+        showMessageModal(successTemplate);
+        closeUploadForm();
+        uploadForm.reset();
+      }).catch (() => {
+        showMessageModal(errorTemplate);
+      }).finally (() => {
+        submitButton.textContent = BUTTON_STATE.IDLE;
+        submitButton.disabled = false;
+      });
+    }
+  };
+
+  function onSubmitForm (event) {
+    event.preventDefault();
+    sendForm(event.target);
+  }
 };
 
 function closeUploadForm () {
@@ -54,42 +91,6 @@ function closeUploadForm () {
   fileUploadControl.value = "";
   document.removeEventListener("keydown", closeOnEsc);
   closeEditorButton.removeEventListener("click", onCloseButtonClick);
-}
-
-const commentValidate = (value) => value.length <= MAX_COMMENT_LENGTH;
-
-const pristine = new Pristine (uploadForm,
-  {
-    classTo: "form__item",
-    errorClass: "form__item--invalid",
-    successClass: "form__item--valid",
-    errorTextParent: "form__item",
-    errorTextTag: "span",
-    errorTextClass: "form__error"
-  }
-);
-
-const hashtagsValidation = () => {
-  pristine.addValidator(hashtagsInput, isHashSymbol, ERRORS.NOT_HASH, 1);
-  pristine.addValidator(hashtagsInput, isSpaceBetween, ERRORS.NOT_SPACES, 1);
-  pristine.addValidator(hashtagsInput, isRepeat, ERRORS.REPEATS, 1);
-};
-
-hashtagsValidation();
-
-pristine.addValidator(commentInput, commentValidate, "Комментарий не должен содержать более 140 символов");
-
-commentInput.addEventListener("input", (event) => {
-  event.preventDefault();
-  pristine.validate();
-});
-
-function onSubmitForm (event) {
-  event.preventDefault();
-  if (pristine.validate()) {
-    hashtagsInput.value = hashtagsInput.value.trim().replace(/\s+/g, " ");
-    uploadForm.submit();
-  }
 }
 
 export { openEditor };
